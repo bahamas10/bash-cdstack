@@ -11,6 +11,7 @@
 
 _CD_STACK=()
 CD_STACK_MAX=${CD_STACK_MAX:-15}
+CD_STACK_REVERSE=
 cd() {
 	local oPWD=$PWD
 	builtin cd "$@" || return $?
@@ -20,10 +21,16 @@ cd() {
 	fi
 }
 s() {
-	local i=$(( ${#_CD_STACK[@]} - 1 ))
-	for (( ; i >= 0; i-- )); do
-		printf '%2d: %s\n' "$i" "${_CD_STACK[$i]/#$HOME/~}"
-	done
+	local max=${#_CD_STACK[@]} i=
+	if [[ -n $CD_STACK_REVERSE ]]; then
+		for ((i = 0 ; i < max; i++ )); do
+			printf '%2d: %s\n' "$i" "${_CD_STACK[$i]/#$HOME/~}"
+		done
+	else
+		for ((i = max - 1 ; i >= 0; i-- )); do
+			printf '%2d: %s\n' "$i" "${_CD_STACK[$i]/#$HOME/~}"
+		done
+	fi
 }
 cs() {
 	cd "${_CD_STACK[$1]}"
