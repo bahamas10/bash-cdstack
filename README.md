@@ -12,6 +12,10 @@ Use [basher](https://github.com/bahamas10/basher) to manage this plugin
 
 After installing `basher`, install this plugin by running
 
+    basher install git://github.com/bahamas10/bash-cdstack.git
+
+Or install manually with
+
     cd ~/.basher/plugins
     git clone git://github.com/bahamas10/bash-cdstack.git
 
