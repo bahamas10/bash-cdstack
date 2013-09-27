@@ -9,29 +9,63 @@
 # Author: Dave Eddy <dave@daveeddy.com>
 # License: MIT
 
-_CD_STACK=()
+# config
 CD_STACK_MAX=${CD_STACK_MAX:-15}
 CD_STACK_REVERSE=
+
+# internal
+_CD_STACK=("$PWD")
+_CD_STACK_PTR=0
+
 cd() {
-	local oPWD=$PWD
-	builtin cd "$@" || return $?
-	_CD_STACK=("$oPWD" "${_CD_STACK[@]}")
-	if (( ${#_CD_STACK[@]} > CD_STACK_MAX )); then
+	builtin cd "$@"
+	local ret=$?
+	((ret != 0)) && return "$ret"
+
+	_CD_STACK=("$PWD" "${_CD_STACK[@]}")
+	if ((${#_CD_STACK[@]} > CD_STACK_MAX)); then
 		unset _CD_STACK[${#_CD_STACK[@]}-1]
 	fi
+	_CD_STACK_PTR=0
+
+	return "$ret"
 }
+
 s() {
-	local max=${#_CD_STACK[@]} i=
+	if [[ -n $1 ]]; then
+		local dir=${_CD_STACK[$1]}
+		builtin cd "$dir"
+		local ret=$?
+		if ((ret == 0)) && [[ -n $dir ]]; then
+			_CD_STACK_PTR=$1
+		fi
+		return "$ret"
+	fi
+
+	local max=${#_CD_STACK[@]}
+	local i
+	local arrow="$(tput setaf 2)->$(tput sgr0)"
 	if [[ -n $CD_STACK_REVERSE ]]; then
-		for ((i = 0 ; i < max; i++ )); do
+		for ((i = max - 1; i >= 0; i--)); do
+			if ((i == _CD_STACK_PTR)); then
+				echo -n "$arrow"
+			else
+				echo -n '  '
+			fi
 			printf '%2d: %s\n' "$i" "${_CD_STACK[$i]/#$HOME/~}"
 		done
 	else
-		for ((i = max - 1 ; i >= 0; i-- )); do
+		for ((i = 0; i < max; i++)); do
+			if ((i == _CD_STACK_PTR)); then
+				echo -n "$arrow"
+			else
+				echo -n '  '
+			fi
 			printf '%2d: %s\n' "$i" "${_CD_STACK[$i]/#$HOME/~}"
 		done
 	fi
 }
-cs() {
-	cd "${_CD_STACK[$1]}"
+
+b() {
+	s "$((_CD_STACK_PTR + 1))"
 }
