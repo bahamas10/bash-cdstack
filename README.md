@@ -5,6 +5,8 @@ Store the last X directories visited using `cd` in bash
 
 See the blog post here: http://daveeddy.com/2013/09/14/directory-management-with-cd/
 
+![cdstack](http://daveeddy.com/static/media/2013/09/cdstack.png)
+
 Installation
 ------------
 
@@ -30,8 +32,6 @@ Or install manually for `basher` with
 
 Usage
 -----
-
-![cdstack](http://daveeddy.com/static/media/2013/09/cdstack.png)
 
 You `cd` around like you normally would, and the directories are pushed into a
 stack. Use the function `s` to view the stack of directories, and run `s "$num"` to
