@@ -43,7 +43,7 @@ Exports
 ### Global Variables
 
 - `CD_STACK_MAX` - the max number of directory names to store, defaults to 15
-- `CD_STACK_REVERSE` - set this variable to reverse the stack when printed with `s`
+- `CD_STACK_REVERSE` - set this variable to an non-zero length string to reverse the stack when printed with `s`
 - `_CD_STACK` - (private) the stack object itself (an array)
 - `_CD_STACK_PTR` - (private) the current position in the stack
 
