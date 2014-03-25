@@ -10,18 +10,14 @@ See the blog post here: http://daveeddy.com/2013/09/14/directory-management-with
 Installation
 ------------
 
-### basher
+### bics
 
-Use [basher](https://github.com/bahamas10/basher) to manage this plugin
+Use [bics](https://github.com/bahamas10/bics) to manage this plugin
 
-After installing `basher`, install this plugin by running
+After installing `bics`, install this plugin by running
 
-    basher install git://github.com/bahamas10/bash-cdstack.git
+    bics install git://github.com/bahamas10/bash-cdstack.git
 
-Or install manually for `basher` with
-
-    cd ~/.basher/plugins
-    git clone git://github.com/bahamas10/bash-cdstack.git
 
 ### manually
 
