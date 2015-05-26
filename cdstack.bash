@@ -12,7 +12,7 @@
 
 # config
 CD_STACK_MAX=${CD_STACK_MAX:-15}
-CD_STACK_REVERSE=
+#CD_STACK_REVERSE=   set by environment
 
 # internal
 _CD_STACK=("$PWD")
@@ -46,25 +46,16 @@ s() {
 	local max=${#_CD_STACK[@]}
 	local i
 	local arrow="$(tput setaf 2)->$(tput sgr0)"
-	if [[ -n $CD_STACK_REVERSE ]]; then
-		for ((i = max - 1; i >= 0; i--)); do
-			if ((i == _CD_STACK_PTR)); then
-				echo -n "$arrow"
-			else
-				echo -n '  '
-			fi
-			printf '%2d: %s\n' "$i" "${_CD_STACK[$i]/#$HOME/~}"
-		done
-	else
-		for ((i = 0; i < max; i++)); do
-			if ((i == _CD_STACK_PTR)); then
-				echo -n "$arrow"
-			else
-				echo -n '  '
-			fi
-			printf '%2d: %s\n' "$i" "${_CD_STACK[$i]/#$HOME/~}"
-		done
-	fi
+	for ((i = 0; i < max; i++)); do
+		local j=$i
+		[[ -n $CD_STACK_REVERSE ]] && j=$((max - 1 -i))
+		if ((j == _CD_STACK_PTR)); then
+			echo -n "$arrow"
+		else
+			echo -n '  '
+		fi
+		printf '%2d: %s\n' "$j" "${_CD_STACK[$j]/#$HOME/~}"
+	done
 }
 
 b() {
