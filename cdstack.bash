@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # cd Stack management
 #
 # You `cd` around like you normally would, and the directories are pushed
@@ -20,7 +21,7 @@ _CD_STACK_PTR=0
 cd() {
 	builtin cd "$@"
 	local ret=$?
-	((ret != 0)) && return "$ret"
+	((ret == 0)) || return "$ret"
 
 	_CD_STACK=("$PWD" "${_CD_STACK[@]}")
 	if ((${#_CD_STACK[@]} > CD_STACK_MAX)); then
