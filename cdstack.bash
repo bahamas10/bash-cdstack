@@ -3,7 +3,7 @@
 #
 # You `cd` around like you normally would, and the directories are pushed
 # into a stack.  Use the function `s` to view the stack of directories,
-# and run `cs $num` to `cd` into the directory listed.
+# and run `s $num` to `cd` into the directory listed.
 #
 # inspired by http://www.derekwyatt.org/2011/08/18/my-bash-directory-management/
 #
