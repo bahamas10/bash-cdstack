@@ -54,7 +54,7 @@ s() {
 		else
 			echo -n '  '
 		fi
-		printf '%2d: %s\n' "$j" "${_CD_STACK[$j]/#$HOME/~}"
+		printf '%2d: %s\n' "$j" "${_CD_STACK[$j]/#$HOME/\~}"
 	done
 }
 
