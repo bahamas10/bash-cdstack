@@ -16,12 +16,12 @@ Use [bics](https://github.com/bahamas10/bics) to manage this plugin
 
 After installing `bics`, install this plugin by running
 
-    bics install git://github.com/bahamas10/bash-cdstack.git
+    bics install https://github.com/bahamas10/bash-cdstack.git
 
 
 ### manually
 
-    git clone git://github.com/bahamas10/bash-cdstack.git
+    git clone https://github.com/bahamas10/bash-cdstack.git
     cd bash-cdstack
     cat cdstack.bash >> ~/.bashrc
     exec bash
